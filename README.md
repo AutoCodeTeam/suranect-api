@@ -5,7 +5,7 @@
 
 ## Getting Started
     - Copy file .env.example and rename with .env
-    - And go to command prompt "go run main.go"
+    - And go to command prompt "go get && go run main.go"
 
 ## URL Docs
 - ### / (GET) <br>
@@ -20,18 +20,17 @@
 
 - ### /auth/login<br/>
     METHOD(POST) <br/>
-    JSON (username, email, password) <br/>
+    JSON (username, password) <br/>
     RETURN (Message, Status, Token)
 
 - ### /auth/send_verify_email <br/>
-    METHOD(POST) <br/>
+    METHOD(GET) <br/>
     MIDDLEWARE (AUTH) <br/>
-    JSON (username, email, password) <br/>
     RETURN (Message, Status)
 - ### /auth/verify_email<br/>
     METHOD(POST) <br/>
     MIDDLEWARE (AUTH) <br/>
-    JSON (username, email, password) <br/>
+    JSON (code) <br/>
     RETURN (Message, Status)
 
 
