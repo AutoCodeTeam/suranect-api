@@ -91,7 +91,7 @@ func Login(c *gin.Context) {
 	token, _ := utils.CreateToken("authToken", authUserInfo{User_id: user.ID})
 
 	c.JSON(200, gin.H{
-		"Status":  "euccess",
+		"Status":  "success",
 		"Message": "Berhasil Login",
 		"Token":   token,
 	})
@@ -199,4 +199,24 @@ func VerifyEmail(c *gin.Context) {
 		})
 		return
 	}
+}
+
+func Me(c *gin.Context) {
+	is_login := c.MustGet("is_login").(bool)
+	if !is_login {
+		return
+	}
+
+	userinfo := c.MustGet("userinfo").(map[string]interface{})
+	db, _ := database.ConnectMysql()
+
+	var user = model.User{}
+	user.ID = uint(userinfo["User_id"].(float64))
+	db.First(&user)
+
+	c.JSON(200, gin.H{
+		"Message": "Success Get User",
+		"Status":  "success",
+		"Data":    user,
+	})
 }

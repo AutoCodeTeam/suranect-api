@@ -20,4 +20,6 @@ func Init(r *gin.Engine) {
 	auth.POST("/login", controller.Login)
 	auth.GET("/send_verify_email", middleware.Auth, middleware.VerifiedEmail, controller.SendVerifyEmail)
 	auth.POST("/verify_email", middleware.Auth, middleware.VerifiedEmail, controller.VerifyEmail)
+	auth.GET("/me", middleware.Auth, controller.Me)
+
 }
