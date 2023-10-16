@@ -37,14 +37,14 @@ func Register(c *gin.Context) {
 
 	if user.Error != nil {
 		c.JSON(200, gin.H{
-			"Status":  "Error",
+			"Status":  "error",
 			"Message": user.Error.Error(),
 		})
 		return
 	}
 
 	c.JSON(200, gin.H{
-		"Status":  "Success",
+		"Status":  "success",
 		"Message": "Berhasil membuat akun",
 	})
 	return
@@ -81,7 +81,7 @@ func Login(c *gin.Context) {
 
 	if user.ID == 0 || !utils.CheckPasswordHash(request.Password, user.Password) {
 		c.JSON(200, gin.H{
-			"Status":  "Error",
+			"Status":  "error",
 			"Message": "Password atau Username Salah",
 		})
 		return
@@ -91,7 +91,7 @@ func Login(c *gin.Context) {
 	token, _ := utils.CreateToken("authToken", authUserInfo{User_id: user.ID})
 
 	c.JSON(200, gin.H{
-		"Status":  "Success",
+		"Status":  "euccess",
 		"Message": "Berhasil Login",
 		"Token":   token,
 	})
@@ -127,7 +127,7 @@ func SendVerifyEmail(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(200, gin.H{
-			"Status":  "Error",
+			"Status":  "error",
 			"Message": err.Error(),
 		})
 		return
@@ -137,7 +137,7 @@ func SendVerifyEmail(c *gin.Context) {
 	db.Save(&user)
 
 	c.JSON(200, gin.H{
-		"Status":  "Success",
+		"Status":  "success",
 		"Message": "Berhasil Mengirim Verifikasi Email",
 	})
 	return
@@ -183,7 +183,7 @@ func VerifyEmail(c *gin.Context) {
 
 	if request.Code == user.EmailCode {
 		c.JSON(200, gin.H{
-			"Status":  "Success",
+			"Status":  "success",
 			"Message": "Account Has Been Verified",
 		})
 
@@ -194,7 +194,7 @@ func VerifyEmail(c *gin.Context) {
 		return
 	} else {
 		c.JSON(200, gin.H{
-			"Status":  "Error",
+			"Status":  "error",
 			"Message": "The code entered is incorrect",
 		})
 		return

@@ -18,7 +18,7 @@ func Auth(c *gin.Context) {
 
 	if errors != nil {
 		c.JSON(401, gin.H{
-			"Status":  "Error",
+			"Status":  "error",
 			"Message": errors.Error(),
 		})
 
@@ -32,7 +32,7 @@ func Auth(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(401, gin.H{
-			"Status":  "Error",
+			"Status":  "error",
 			"Message": err.Error(),
 		})
 		c.Set("is_login", false)
