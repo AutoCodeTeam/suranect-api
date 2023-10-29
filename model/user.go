@@ -11,4 +11,5 @@ type User struct {
 	Email       string `gorm:"unique"`
 	EmailVerify bool
 	EmailCode   int
+	Laporans    []Laporan
 }

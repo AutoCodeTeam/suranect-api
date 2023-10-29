@@ -54,7 +54,7 @@ func main() {
 			return
 		}
 
-		db.AutoMigrate(&model.User{})
+		db.AutoMigrate(&model.User{}, &model.Laporan{})
 		c.JSON(200, gin.H{
 			"status":  "success",
 			"message": "Success Migrate All Database",
@@ -126,6 +126,22 @@ func main() {
 		c.JSON(200, gin.H{
 			"data": testing.Get(),
 		})
+	})
+
+	r.GET("/test_storage", func(c *gin.Context) {
+		file, _ := c.FormFile("file")
+		idString, err := utils.Upload(file, "testing-upload")
+
+		if err != nil {
+			c.JSON(200, gin.H{
+				"data": err.Error(),
+			})
+		}
+
+		c.JSON(200, gin.H{
+			"data": idString,
+		})
+
 	})
 
 	r.GET("/test_middleware", is_admin, func(c *gin.Context) {
