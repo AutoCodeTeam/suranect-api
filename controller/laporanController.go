@@ -19,7 +19,9 @@ func (ctrl LaporanController) Index(c *gin.Context) {
 	db.Model(&model.Laporan{}).Preload("User").Find(&laporan)
 
 	c.JSON(200, gin.H{
-		"Data": laporan,
+		"Data":    laporan,
+		"Status":  "success",
+		"Message": "Success Get Laporan",
 	})
 }
 
@@ -28,6 +30,7 @@ type storeForm struct {
 	LokasiSpesifik string               `form:"lokasiSpesifik"`
 	Permasalahan   string               `form:"permasalahan" binding:"required"`
 	Kategori       string               `form:"kategori" binding:"required"`
+	Status         string               `form:"status"`
 	Photo          multipart.FileHeader `form:"photo" binding:"required"`
 }
 
@@ -42,6 +45,7 @@ func (ctrl LaporanController) Store(c *gin.Context) {
 
 	db, _ := database.ConnectMysql()
 	var request storeForm
+	request.Status = "pending"
 	err := c.Bind(&request)
 
 	if err != nil {
@@ -63,6 +67,7 @@ func (ctrl LaporanController) Store(c *gin.Context) {
 		LokasiSpesifik: request.LokasiSpesifik,
 		Kategori:       request.Kategori,
 		Photo:          idObject,
+		Status:         request.Status,
 	})
 
 	c.JSON(200, gin.H{

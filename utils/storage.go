@@ -15,7 +15,7 @@ import (
 
 func ConnectStorage() *storage.BucketHandle {
 	config := &firebase.Config{
-		StorageBucket: "suravent-81e1c.appspot.com",
+		StorageBucket: os.Getenv("storage_bucket"),
 	}
 	opt := option.WithCredentialsFile(os.Getenv("firebase_path_credentials"))
 	app, err := firebase.NewApp(context.Background(), config, opt)

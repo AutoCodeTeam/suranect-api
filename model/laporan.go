@@ -11,4 +11,5 @@ type Laporan struct {
 	Permasalahan   string
 	Kategori       string
 	Photo          string
+	Status         string
 }
