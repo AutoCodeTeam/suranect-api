@@ -40,12 +40,16 @@ func Upload(file *multipart.FileHeader, typeFile string) (string, error) {
 	storage := ConnectStorage()
 
 	f, err := file.Open()
+	if err != nil {
+		return "", err
+	}
 	defer f.Close()
 
 	str := fmt.Sprintf("%s-%s", typeFile, RandomString(20))
 	o := storage.Object(str)
 
 	wc := o.NewWriter(context.Background())
+
 	if _, err = io.Copy(wc, f); err != nil {
 		return "", err
 	}
@@ -53,5 +57,14 @@ func Upload(file *multipart.FileHeader, typeFile string) (string, error) {
 		return "", err
 	}
 
-	return str, nil
+	attrs, err := o.Attrs(context.Background())
+	if err != nil {
+		return "", err
+	}
+
+	downloadURL := attrs.MediaLink
+
+	fmt.Println(downloadURL)
+
+	return downloadURL, nil
 }
