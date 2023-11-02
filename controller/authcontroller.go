@@ -212,7 +212,7 @@ func Me(c *gin.Context) {
 
 	var user = model.User{}
 	user.ID = uint(userinfo["User_id"].(float64))
-	db.First(&user)
+	db.First(&user).Preload("Laporans").Find(&user)
 
 	c.JSON(200, gin.H{
 		"Message": "Success Get User",

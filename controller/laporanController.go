@@ -77,10 +77,10 @@ func (ctrl LaporanController) Store(c *gin.Context) {
 }
 
 type updateForm struct {
-	Lokasi         string               `form:"lokasi" binding:"required"`
+	Lokasi         string               `form:"lokasi" `
 	LokasiSpesifik string               `form:"lokasiSpesifik"`
-	Permasalahan   string               `form:"permasalahan" binding:"required"`
-	Kategori       string               `form:"kategori" binding:"required"`
+	Permasalahan   string               `form:"permasalahan" `
+	Kategori       string               `form:"kategori" `
 	Photo          multipart.FileHeader `form:"photo"`
 }
 
