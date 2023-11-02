@@ -116,10 +116,18 @@ func (ctrl LaporanController) Update(c *gin.Context) {
 		laporan.Photo = idObject
 	}
 
-	laporan.Lokasi = request.Lokasi
-	laporan.LokasiSpesifik = request.LokasiSpesifik
-	laporan.Permasalahan = request.Permasalahan
-	laporan.Kategori = request.Kategori
+	if request.Lokasi != "" {
+		laporan.Lokasi = request.Lokasi
+	}
+	if request.LokasiSpesifik != "" {
+		laporan.LokasiSpesifik = request.LokasiSpesifik
+	}
+	if request.Permasalahan != "" {
+		laporan.Permasalahan = request.Permasalahan
+	}
+	if request.Kategori != "" {
+		laporan.Kategori = request.Kategori
+	}
 
 	db.Save(&laporan)
 
